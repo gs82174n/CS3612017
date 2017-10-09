@@ -1,0 +1,28 @@
+
+public class homework2 {
+	public static int recPow(int n){
+		
+		
+		if (n == 0) {
+			return 1;
+		}
+		else {
+			return 2 * recPow(n - 1);
+		}
+	}
+	
+	public static void main(String[] args) {
+		int i = 50;
+		boolean flag = false;
+		
+		if (i >= 31 || i < 0)flag = true;
+		
+		
+		if (flag) {
+			System.out.println("Error, invalid number!");
+		}
+		else {
+			System.out.println(recPow(i));
+		}
+	}
+}
