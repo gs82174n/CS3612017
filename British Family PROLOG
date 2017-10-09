@@ -1,0 +1,28 @@
+M(Phillip).
+M(Edward VII).
+	M(George V).
+	M(George VI).
+	M(Charles).
+	M(William).
+	M(Harry).
+	M(George VIII).
+	
+P(Edward VII, George V).
+	P(Victoria, Edward VII).
+	P(Alexandra, George V).
+	P(George VI, Elizabeth II).
+	P(George V, George VI).
+	P(Elizabeth II, Charles).
+	P(Phillip, Charles). 
+	P(Charles, William).
+	P(Charles, Harry).
+	P(Diana, William).
+	P(Diana, Harry).
+	P(William, George VIII).
+	P(Kate, George VIII).
+	P(William, Charlotte).
+	P(Kate, Charlotte).
+	G(x,y): -P(x,z), P(z,y)
+	
+b.      Write a rule that describes the father predicate. Father(X,Y) means that X is the father of Y.
+P(X,Y) /\ M(X) → Father(X,Y)
