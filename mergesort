@@ -1,0 +1,77 @@
+// citations:
+// http://www.java2novice.com/java-sorting-algorithms/merge-sort/
+// https://www.buildingjavaprograms.com/code-files/4ed/ch13/MergeSort.java
+
+import java.util.*;
+
+public class recursiveMerge {
+
+	// This program implements the merge sort algorithm for
+	// arrays of integers.
+
+	public static void main(String[] args) {
+		int[] a = {-5, 94, -21, 11, 23, 0, -38};
+		System.out.println("Initial array: ");
+		for(int i = 0; i < a.length; i++)
+			System.out.print(a[i] + " ");
+		
+		mergeSort(a);
+		System.out.println("\nArray after sorting:  ");
+		for(int i = 0; i< a.length; i++)
+			System.out.print(a[i] + " ");
+	}
+
+	// Puts the integers in order using mergesort
+	public static void mergeSort(int[] array) {
+		if (array.length > 1) {
+			// split array into two halves
+			int[] left = left(array);
+			int[] right = right(array);
+
+			// recursively sort the two halves
+			mergeSort(left);
+			mergeSort(right);
+
+			// merge the sorted halves into a whole
+			merge(array, left, right);
+		}
+	}
+
+	// Returns the first half of the  array
+	public static int[] left(int[] array) {
+		int size1 = array.length / 2;
+		int[] left = new int[size1];
+		for (int i = 0; i < size1; i++) {
+			left[i] = array[i];
+		}
+		return left;
+	}
+
+	// Returns the second half of the array
+	public static int[] right(int[] array) {
+		int size1 = array.length / 2;
+		int size2 = array.length - size1;
+		int[] right = new int[size2];
+		for (int i = 0; i < size2; i++) {
+			right[i] = array[i + size1];
+		}
+		return right;
+	}
+
+	// Merges the left and right arrays
+	public static void merge(int[] result, 
+			int[] left, int[] right) {
+		int k = 0;   // index into left array
+		int j = 0;   // index into right array
+
+		for (int i = 0; i < result.length; i++) {
+			if (j>= right.length || (k< left.length && left[k] <= right[j])) {
+				result[i] = left[k];    // take from left
+				k++;
+			} else {
+				result[i] = right[j];   // take from right
+				j++;
+			}
+		}
+	}
+}
