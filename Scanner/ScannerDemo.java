@@ -1,5 +1,6 @@
 /**
  * @author Christelle
+ * done with Nick Krawczeniuk
  * 
  */
 public class ScannerDemo {
