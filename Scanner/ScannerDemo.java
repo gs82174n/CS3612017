@@ -4,7 +4,7 @@
  */
 public class ScannerDemo {
 
-	private static String tester = "C:\\Users\\gianna8123\\Desktop\\TestProgram1.txt";
+	private static String tester = "C:\\Users\\cscharff\\Desktop\\TESTSCANNERPARSER2010\\GIVEN\\PARSER\\prog2.jay";
 	private static int counter = 1;
 
 	public static void main(String args[]) {
