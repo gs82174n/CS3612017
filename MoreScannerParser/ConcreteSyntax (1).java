@@ -281,7 +281,7 @@ public class ConcreteSyntax {
 			token = input.nextToken();
 		} else if (token.getType().equals("Literal") || token.getType().equals("Integer-Literal")) {
 			Value v = null;
-			if (isInteger(token.getValue()))
+			if (isInteger(token.getValue())) 
 				v = new Value((new Integer(token.getValue())).intValue());
 			else if (token.getValue().equals("true"))
 				v = new Value(true);
@@ -315,13 +315,13 @@ public class ConcreteSyntax {
 		
 		c.thenbranch = statement();
 		
-		match("{");
+		if (token.getValue().equals("{")) {
 		
 		match("else");
 		
 		c.elsebranch = statement();
 		
-		match("}");
+		match("}");}
 		
 		return c;
 	}
@@ -329,11 +329,12 @@ public class ConcreteSyntax {
 	private Loop whileStatement() {
 		// WhileStatement --> while ( Expression ) Statement
 		Loop l = new Loop();
-		 
+		Expression e;
 		match("while");
 		match("(");
 		 
-		l.test = expression();
+		e = expression();
+		l.test = e;
 		 
 		match(")");
 		 
