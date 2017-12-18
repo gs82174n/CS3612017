@@ -60,7 +60,7 @@ public class TokenStream {
 					nextChar = readChar();
 				}
 				
-				if (isEndOfLine(readChar())) {
+				if (isEndOfLine(nextChar)) {
 					nextChar = readChar();
 				}
 			}
@@ -68,8 +68,10 @@ public class TokenStream {
 				// A slash followed by anything else must be an operator.
 				t.setValue("/");
 				t.setType("Operator");
+				skipWhiteSpace();
 				return t;
 		}
+			skipWhiteSpace();
 	}		
 			
 		
@@ -89,42 +91,22 @@ public class TokenStream {
 
 	// Then check for an operator; recover 2-character operators
 	// as well as 1-character ones.
-	if (isOperator(nextChar)) {
-		t.setType("Operator");
-		t.setValue(t.getValue() + nextChar);
-		nextChar = readChar();
-		switch (nextChar) {
-		case '<':
+		if (isOperator(nextChar)) {
+			t.setType("Operator");
+			t.setValue(t.getValue() + nextChar);
 			nextChar = readChar();
-			if(nextChar == '=') {
-				t.setValue("<=");
-			}
-		case '>':
-			nextChar = readChar();
-			if(nextChar == '=') {
-				t.setValue(">=");
-				}
-		case '=':
-			// look for <=(done), >=(done), !=, ==
-			// Completed
-			nextChar = readChar();
-			if(nextChar == '=') {
-				t.setValue("==");
-				//return t;
-			}
-		case '!':
-			nextChar = readChar();
-			if(t.getValue().equals("")) {
-				t.setType("Operator");
-			}
-			else if(nextChar == '=') {
-				t.setValue("!=");
-				t.setType("Operator");
-			} 
-			else {
+			switch (nextChar) {
+			case '<':
+			case '>':
+			case '!':
+			case '=':
 				nextChar = readChar();
+				if(nextChar == '=') {
+					// t.setValue(t.getValue() + nextChar);
+					t.setType("Operator");
+				}
 				return t;
-			}
+			
 			
 		case 92: 
 			// look for the OR operator, \/
