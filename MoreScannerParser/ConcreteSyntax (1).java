@@ -1,7 +1,6 @@
 // ConcreteSyntax.java
 
 // Implementation of the Recursive Descent Parser algorithm
-//DONE WITH NICK KRAWCZENIUK
 
 //  Each method corresponds to a concrete syntax grammar rule, 
 // which appears as a comment at the beginning of the method.
@@ -45,7 +44,7 @@ public class ConcreteSyntax {
 
 	public Program program() {
 		// Program --> void main ( ) '{' Declarations Statements '}'
-		String[] header = { "main", "(", ")" };
+		String[] header = {"void", "main", "(", ")" };
 		Program p = new Program();
 		for (int i = 0; i < header.length; i++)
 			// bypass "void main ( )"
@@ -127,12 +126,15 @@ public class ConcreteSyntax {
 		else if (token.getValue().equals("while")) {
 			// WhileStatement
 			s = whileStatement();
-		} else if (token.getType().equals("Identifier")) { // Assignment
+		} 
+		else if (token.getValue().equals("=")) {
+			token = input.nextToken();
+	}else if (token.getType().equals("Identifier")) { // Assignment
 			
 			// CHECK
 			
-			token = input.nextToken();
-			s = statements();
+			
+			s = assignment();
 		} else
 			throw new RuntimeException(SyntaxError("Statement"));
 		return s;
@@ -190,8 +192,8 @@ public class ConcreteSyntax {
 		// Conjunction --> Relation { && Relation }*
 		Binary b;
 		Expression e;
-		e = conjunction();
-		while (token.getValue().equals("||")) {
+		e = relation();
+		while (token.getValue().equals("&&")) {
 			b = new Binary();
 			b.term1 = e;
 			b.op = new Operator(token.getValue());
@@ -277,7 +279,7 @@ public class ConcreteSyntax {
 			v.id = token.getValue();
 			e = v;
 			token = input.nextToken();
-		} else if (token.getType().equals("Literal")) {
+		} else if (token.getType().equals("Literal") || token.getType().equals("Integer-Literal")) {
 			Value v = null;
 			if (isInteger(token.getValue()))
 				v = new Value((new Integer(token.getValue())).intValue());
@@ -295,6 +297,8 @@ public class ConcreteSyntax {
 			match(")");
 		} else
 			throw new RuntimeException(SyntaxError("Identifier | Literal | ("));
+		if (token.getValue().equals(";"))
+			return e;
 		return e;
 	}
 
